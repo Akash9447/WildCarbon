@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WildCarbon</title>
+</head>
+<body>
+  <h1>🌍 WildCarbon Marketplace</h1>
+  <p id="wallet">Wallet not connected</p>
+  <button onclick="connectWallet()">Connect Wallet</button>
+  <br><br>
+
+  <h2>Mint & List NFT (For Parks)</h2>
+  <button onclick="mintAndList()">Mint + List NFT</button>
+
+  <h2>Buy NFT (For Companies)</h2>
+  <button onclick="buy()">Buy NFT</button>
+
+  <script type="module">
+    import { connectWallet, mintAndListNFT, buyNFT } from "./app.js";
+    import { ethers } from "ethers";
+
+    window.connectWallet = connectWallet;
+
+    window.mintAndList = async function() {
+      await mintAndListNFT(
+        "0xYourWalletAddress",  // Park’s wallet
+        100,                   // Credits
+        "ipfs://QmYourHash",   // Metadata
+        ethers.parseEther("0.1") // Price in ETH
+      );
+    };
+
+    window.buy = async function() {
+      await buyNFT(1, ethers.parseEther("0.1")); // TokenId + Price
+    };
+  </script>
+</body>
+</html>
