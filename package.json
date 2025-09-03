@@ -1,8 +1,0 @@
-{
-  "name": "wildcarbon",
-  "version": "1.0.0",
-  "description": "WildCarbon dApp - Carbon Credit NFTs",
-  "dependencies": {
-    "ethers": "^6.12.0"
-  }
-}
