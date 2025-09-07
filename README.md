@@ -16,8 +16,8 @@ The platform offers three core features:
 
 * Smart Contracts: Solidity (ERC-20 for CAT tokens, ERC-721 for certificates)
 * Frontend: React.js with Web3.js/Ethers.js
-* Blockchain: Polygon (eco-friendly, low transaction cost)
-* Storage: IPFS for certificates and records
+* Blockchain: Ethereum Sepolia Testnet
+* Storage: IPFS for certificates and records ( Pinata )
 
 **Impact:**
 WildCarbon simultaneously addresses **climate change mitigation** and **biodiversity conservation**. By linking carbon markets with wildlife protection, it ensures that sanctuaries are no longer dependent only on unstable funding sources. Instead, they become active participants in the global fight against climate change, with blockchain guaranteeing transparency, trust, and accessibility.
