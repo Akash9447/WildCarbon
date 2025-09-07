@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles for WildCarbon */
+/* Custom styles for WildCarbon - Wildlife Conservation Theme */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,6 +10,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
+  min-height: 100vh;
 }
 
 code {
@@ -36,4 +38,72 @@ html {
 
 .fade-in {
   animation: fadeIn 0.5s ease-out;
+}
+
+/* Wildlife-themed background patterns */
+.wildlife-bg {
+  background-image: 
+    url('https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'),
+    linear-gradient(rgba(6, 95, 70, 0.8), rgba(4, 120, 87, 0.8));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.forest-bg {
+  background-image: 
+    url('https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'),
+    linear-gradient(rgba(5, 150, 105, 0.7), rgba(6, 95, 70, 0.7));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+.elephant-bg {
+  background-image: 
+    url('https://images.pexels.com/photos/631317/pexels-photo-631317.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'),
+    linear-gradient(rgba(34, 197, 94, 0.6), rgba(22, 163, 74, 0.6));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+.tiger-bg {
+  background-image: 
+    url('https://images.pexels.com/photos/792381/pexels-photo-792381.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop'),
+    linear-gradient(rgba(22, 163, 74, 0.7), rgba(21, 128, 61, 0.7));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Enhanced green color scheme */
+.bg-nature-primary {
+  background: linear-gradient(135deg, #059669, #047857);
+}
+
+.bg-nature-secondary {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.text-nature-dark {
+  color: #064e3b;
+}
+
+.border-nature {
+  border-color: #059669;
+}
+
+/* Card enhancements with nature theme */
+.nature-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.nature-card:hover {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
