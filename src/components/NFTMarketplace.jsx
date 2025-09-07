@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useWallet } from '../hooks/useWallet';
 import { useContract } from '../hooks/useContract';
+import { useAuth } from '../contexts/AuthContext';
 import { ethers } from 'ethers';
 
-const NFTMarketplace = () => {
+const NFTMarketplace = ({ userRole }) => {
   const { account } = useWallet();
   const { contract } = useContract();
+  const { user } = useAuth();
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [buyingTokenId, setBuyingTokenId] = useState(null);
@@ -84,7 +86,10 @@ const NFTMarketplace = () => {
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-green-700 font-medium">Loading marketplace...</p>
-        </div>
+            {userRole === 'buyer' 
+              ? `${user?.organization} - Purchase verified carbon credits from wildlife sanctuaries worldwide`
+              : `${user?.organization} - View the marketplace where companies purchase your carbon credits`
+            }
       </div>
     );
   }
@@ -111,7 +116,12 @@ const NFTMarketplace = () => {
         <div className="bg-gradient-to-r from-yellow-100 to-amber-100 border border-yellow-400 text-yellow-800 px-4 py-3 rounded-lg mb-6">
           <div className="flex items-center">
             <span className="text-xl mr-2">⚠️</span>
-            <span>Connect your wallet to purchase carbon credits</span>
+            <span>
+              {userRole === 'buyer' 
+                ? 'Connect your wallet to purchase carbon credits'
+                : 'Connect your wallet to manage your listings'
+              }
+            </span>
           </div>
         </div>
       )}
@@ -120,7 +130,12 @@ const NFTMarketplace = () => {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🌱</div>
           <h3 className="text-xl font-semibold text-nature-dark mb-2">No listings available</h3>
-          <p className="text-green-700">Check back later for new carbon credit offerings</p>
+          <p className="text-green-700">
+            {userRole === 'buyer' 
+              ? 'Check back later for new carbon credit offerings'
+              : 'Start minting your carbon credits to see them listed here'
+            }
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -164,7 +179,7 @@ const NFTMarketplace = () => {
 
                 <button
                   onClick={() => handleBuyNFT(listing.tokenId, listing.price)}
-                  disabled={!account || buyingTokenId === listing.tokenId || listing.seller.toLowerCase() === account?.toLowerCase()}
+                  disabled={!account || buyingTokenId === listing.tokenId || listing.seller.toLowerCase() === account?.toLowerCase() || userRole !== 'buyer'}
                   className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-all transform hover:scale-105 flex items-center justify-center space-x-2 shadow-lg"
                 >
                   {buyingTokenId === listing.tokenId ? (
@@ -176,6 +191,8 @@ const NFTMarketplace = () => {
                     <span>Your Listing</span>
                   ) : !account ? (
                     <span>Connect Wallet</span>
+                  ) : userRole !== 'buyer' ? (
+                    <span>View Only</span>
                   ) : (
                     <>
                       <span>💳</span>
@@ -190,22 +207,39 @@ const NFTMarketplace = () => {
       )}
 
       <div className="mt-12 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-8 border border-green-200">
-        <h3 className="font-bold text-green-800 mb-6 text-xl text-center">🌿 Why Choose WildCarbon?</h3>
+        <h3 className="font-bold text-green-800 mb-6 text-xl text-center">
+          🌿 {userRole === 'buyer' ? 'Why Choose WildCarbon?' : 'Your Impact as a Conservation Partner'}
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="text-center">
             <div className="text-4xl mb-3">🔒</div>
             <div className="font-semibold text-green-700">Blockchain Verified</div>
-            <div className="text-green-600">Every credit is immutably recorded</div>
+            <div className="text-green-600">
+              {userRole === 'buyer' 
+                ? 'Every credit is immutably recorded'
+                : 'Your conservation efforts are permanently verified'
+              }
+            </div>
           </div>
           <div className="text-center">
             <div className="text-4xl mb-3">🦋</div>
             <div className="font-semibold text-green-700">Wildlife Protection</div>
-            <div className="text-green-600">Direct funding to sanctuaries</div>
+            <div className="text-green-600">
+              {userRole === 'buyer' 
+                ? 'Direct funding to sanctuaries'
+                : 'Generate sustainable revenue for conservation'
+              }
+            </div>
           </div>
           <div className="text-center">
             <div className="text-4xl mb-3">📊</div>
             <div className="font-semibold text-green-700">Transparent Impact</div>
-            <div className="text-green-600">Track your environmental contribution</div>
+            <div className="text-green-600">
+              {userRole === 'buyer' 
+                ? 'Track your environmental contribution'
+                : 'Showcase your conservation achievements'
+              }
+            </div>
           </div>
         </div>
       </div>

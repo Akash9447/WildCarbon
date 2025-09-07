@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useWallet } from '../hooks/useWallet';
 import { useContract } from '../hooks/useContract';
+import { useAuth } from '../contexts/AuthContext';
 import { ethers } from 'ethers';
 
 const MintForm = () => {
   const { account } = useWallet();
   const { contract } = useContract();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     recipient: '',
     carbonCredits: '',
@@ -71,9 +73,9 @@ const MintForm = () => {
       <div className="max-w-2xl mx-auto">
         <div className="nature-card rounded-xl shadow-xl p-8 text-center elephant-bg">
           <div className="text-6xl mb-4">🔒</div>
-          <h2 className="text-2xl font-bold text-white mb-4">Wallet Required</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Connect Your Wallet</h2>
           <p className="text-white opacity-90 mb-6">
-            Please connect your wallet to mint carbon credit NFTs
+            {user?.organization}, please connect your wallet to mint carbon credit NFTs
           </p>
         </div>
       </div>
@@ -86,7 +88,7 @@ const MintForm = () => {
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-nature-dark mb-2">🏞️ Mint Carbon Credits</h2>
           <p className="text-green-700">
-            Create and list your carbon absorption NFTs for companies to purchase
+            {user?.organization} - Create and list your carbon absorption NFTs for companies to purchase
           </p>
         </div>
 
@@ -111,19 +113,20 @@ const MintForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-semibold text-nature-dark mb-2">
-              Recipient Wallet Address
+              Your Wallet Address (Auto-filled)
             </label>
             <input
               type="text"
               name="recipient"
-              value={formData.recipient}
+              value={account || formData.recipient}
               onChange={handleInputChange}
               placeholder="0x..."
               className="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-600 focus:border-green-600 bg-green-50"
+              readOnly={!!account}
               required
             />
             <p className="text-sm text-green-600 mt-1">
-              The wallet address that will receive the minted NFT
+              Your connected wallet will receive the minted NFT
             </p>
           </div>
 
@@ -143,6 +146,21 @@ const MintForm = () => {
             />
             <p className="text-sm text-green-600 mt-1">
               Amount of CO₂ absorbed (in metric tons)
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-nature-dark mb-2">
+              Sanctuary/Park Name
+            </label>
+            <input
+              type="text"
+              value={user?.organization || ''}
+              className="w-full px-4 py-3 border border-green-300 rounded-lg bg-green-100 text-green-800 font-medium"
+              readOnly
+            />
+            <p className="text-sm text-green-600 mt-1">
+              Your registered park name
             </p>
           </div>
 
@@ -206,9 +224,9 @@ const MintForm = () => {
         <div className="mt-8 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
           <h3 className="font-semibold text-green-800 mb-2">💡 Tips for Success:</h3>
           <ul className="text-sm text-green-700 space-y-1">
-            <li>• Ensure your metadata URI points to valid JSON with verification data</li>
+            <li>• Include detailed verification data from environmental auditors</li>
             <li>• Price competitively based on current carbon credit market rates</li>
-            <li>• Include detailed sanctuary information in your metadata</li>
+            <li>• Document your {user?.organization}'s conservation efforts</li>
             <li>• Consider environmental impact when setting gas fees</li>
           </ul>
         </div>

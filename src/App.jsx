@@ -1,10 +1,28 @@
 import React, { useState } from 'react';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
+import LoginPage from './components/LoginPage';
 import MintForm from './components/MintForm';
 import NFTMarketplace from './components/NFTMarketplace';
 
-function App() {
+const AppContent = () => {
+  const { user, isLoading } = useAuth();
   const [activeTab, setActiveTab] = useState('marketplace');
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white font-medium">Loading WildCarbon...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginPage />;
+  }
 
   return (
     <div className="min-h-screen wildlife-bg">
@@ -68,10 +86,35 @@ function App() {
         </div>
 
         {/* Tab Content */}
-        {activeTab === 'marketplace' && <NFTMarketplace />}
-        {activeTab === 'mint' && <MintForm />}
+        {activeTab === 'marketplace' && <NFTMarketplace userRole={user.role} />}
+        {activeTab === 'mint' && user.role === 'national_park' && <MintForm />}
+        {activeTab === 'mint' && user.role === 'buyer' && (
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="nature-card rounded-xl shadow-xl p-8">
+              <div className="text-6xl mb-4">🏢</div>
+              <h2 className="text-2xl font-bold text-nature-dark mb-4">Company Dashboard</h2>
+              <p className="text-green-700 mb-6">
+                As a company, you can browse and purchase carbon credits from the marketplace to offset your carbon footprint.
+              </p>
+              <button
+                onClick={() => setActiveTab('marketplace')}
+                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-lg font-medium transition-all transform hover:scale-105"
+              >
+                Browse Marketplace
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
