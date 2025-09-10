@@ -2,126 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #1a1a1a;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --forest-green: #228B22;
+  --dark-forest: #1a5f1a;
+  --earth-brown: #8B4513;
+  --sky-blue: #87CEEB;
+  --sage-green: #9CAF88;
+  --cream: #F5F5DC;
+  --charcoal: #2F4F4F;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #1a5f1a 0%, #228B22 50%, #2d7a2d 100%);
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 50%, #2d7a5f 100%);
+  color: #2F4F4F;
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  width: 100%;
+/* Nature-inspired backgrounds */
+.forest-bg {
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.9), rgba(26, 95, 26, 0.9)),
+              url('https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover;
 }
 
-/* Custom green theme colors */
-.bg-green-gradient {
-  background: linear-gradient(135deg, #0f4c3a 0%, #1a5f4a 50%, #2d7a5f 100%);
+.wildlife-bg {
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.95), rgba(26, 95, 26, 0.95)),
+              url('https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover;
 }
 
-.bg-dark-green {
-  background-color: #0f4c3a;
-}
-
-.text-green-light {
-  color: #4ade80;
-}
-
-.text-green-dark {
-  color: #0f4c3a;
-}
-
-.border-green {
-  border-color: #22c55e;
-}
-
-/* Glass morphism effect */
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* Button styles */
-.btn-green {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.btn-green:hover {
-  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
-}
-
-/* Card styles */
-.card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+.nature-card {
+  background: rgba(245, 245, 220, 0.95);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(34, 139, 34, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--forest-green);
+  border-radius: 4px;
+}
+
+/* Button animations */
+.btn-primary {
+  background: linear-gradient(135deg, var(--forest-green), var(--dark-forest));
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(34, 139, 34, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--earth-brown), #654321);
   transition: all 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(139, 69, 19, 0.3);
 }
 
-/* Navbar styles */
-.navbar {
-  background: rgba(15, 76, 58, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/* Loading animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-/* Form styles */
-.form-input {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.form-input:focus {
-  border-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
-  outline: none;
-}
-
-/* Animation utilities */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -129,17 +104,67 @@ body {
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out;
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+/* NFT Card styles */
+.nft-card {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.nft-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--forest-green);
+  box-shadow: 0 20px 40px rgba(34, 139, 34, 0.2);
+}
+
+/* Status indicators */
+.status-success {
+  background: linear-gradient(135deg, #10B981, #059669);
+}
+
+.status-error {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+}
+
+.status-warning {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  #root {
-    padding: 1rem;
+  .forest-bg, .wildlife-bg {
+    background-attachment: scroll;
   }
-  
-  .card {
-    padding: 1.5rem;
-  }
+}
+
+/* Custom utilities */
+.text-nature-dark {
+  color: var(--charcoal);
+}
+
+.text-forest {
+  color: var(--forest-green);
+}
+
+.text-earth {
+  color: var(--earth-brown);
+}
+
+.bg-nature {
+  background-color: var(--cream);
+}
+
+.border-forest {
+  border-color: var(--forest-green);
+}
+
+.shadow-nature {
+  box-shadow: 0 10px 25px rgba(34, 139, 34, 0.15);
 }
